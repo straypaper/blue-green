@@ -1,0 +1,17 @@
+providers:
+  file:
+    directory: /etc/traefik/dynamic
+    watch: true
+  docker: {}
+
+entryPoints:
+  default:
+    address: ":80"
+
+api:
+  insecure: true
+  dashboard: true
+  debug: true
+
+log:
+  level: DEBUG
