@@ -1,17 +1,27 @@
-providers:
-  file:
-    directory: /etc/traefik/dynamic
-    watch: true
-  docker: {}
+global:
+  checkNewVersion: false
+  sendAnonymousUsage: true
 
 entryPoints:
-  default:
+  web:
     address: ":80"
+
+  websecure:
+    address: ":443"
+
+log:
+  level: "DEBUG"
 
 api:
   insecure: true
   dashboard: true
-  debug: true
 
-log:
-  level: DEBUG
+providers:
+  docker:
+    watch: false
+
+  file:
+    directory: "/etc/traefik/dynamic/"
+    watch: true
+    debugLogGeneratedTemplate: true
+  

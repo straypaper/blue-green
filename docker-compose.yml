@@ -6,21 +6,19 @@ services:
       context: ./blue
       dockerfile: Dockerfile
     labels:
-        - traefik.http.routers.blue-router.service=blue-service
-        - traefik.http.routers.blue-router.rule=Host(`blue.docker.localhost`)
-        - traefik.http.routers.blue-router.entrypoints=default
-        - traefik.http.services.blue-service.loadbalancer.server.scheme=http
-        - traefik.http.services.blue-service.loadbalancer.server.port=80
+      - traefik.http.routers.blue-router.service=blue-service
+      - traefik.http.routers.blue-router.rule=Host(`blue.docker.localhost`)
+      - traefik.http.services.blue-service.loadbalancer.server.scheme=http
+      - traefik.http.services.blue-service.loadbalancer.server.port=80
   green:
     build:
       context: ./green
       dockerfile: Dockerfile
     labels:
-        - traefik.http.routers.green-router.service=green-service
-        - traefik.http.routers.green-router.rule=Host(`green.docker.localhost`)
-        - traefik.http.routers.green-router.entrypoints=default
-        - traefik.http.services.green-service.loadbalancer.server.scheme=http
-        - traefik.http.services.green-service.loadbalancer.server.port=80
+      - traefik.http.routers.green-router.service=green-service
+      - traefik.http.routers.green-router.rule=Host(`green.docker.localhost`)
+      - traefik.http.services.green-service.loadbalancer.server.scheme=http
+      - traefik.http.services.green-service.loadbalancer.server.port=80
   traefik:
     image: traefik:v2.10.1
     ports:
@@ -36,8 +34,5 @@ services:
       - traefik.enable=true
     volumes:
       - ./traefik.yml:/etc/traefik/traefik.yml:ro
-      - ./dynamic/main-router.yml:/etc/traefik/dynamic/main-router.yml:ro
+      - ./dynamic:/etc/traefik/dynamic:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-
-volumes:
-  traefik.yml:
