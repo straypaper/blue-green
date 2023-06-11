@@ -1,0 +1,6 @@
+**/.DS_Store
+mssql/*
+!mssql/mssql.conf
+!mssql/mssql.key
+!mssql/mssql.pem
+

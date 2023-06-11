@@ -19,17 +19,28 @@ services:
       - traefik.http.routers.green-router.rule=Host(`green.docker.localhost`)
       - traefik.http.services.green-service.loadbalancer.server.scheme=http
       - traefik.http.services.green-service.loadbalancer.server.port=80
+  mssql:
+    cap_add:
+      - SYS_PTRACE
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: p@ssw0rd1
+      MSSQL_PID: Developer
+    volumes:
+      - ./mssql/:/var/opt/mssql/
+    labels:
+      - traefik.tcp.routers.mssql.service=mssql
+      - traefik.tcp.routers.mssql.rule=HostSNI(`db.docker.localhost`)
+      - traefik.tcp.routers.mssql.tls.passthrough=true
+      - traefik.tcp.services.mssql.loadbalancer.server.port=1431
+      - traefik.tcp.services.mssql.loadbalancer.server.port=1433
   traefik:
     image: traefik:v2.10.1
     ports:
-      - target: 80
-        published: 80
-        protocol: tcp
-        mode: host
-      - target: 8080
-        published: 8080
-        protocol: tcp
-        mode: host
+      - 80:80
+      - 1433:1433
+      - 8080:8080
     labels:
       - traefik.enable=true
     volumes:

@@ -6,8 +6,8 @@ entryPoints:
   web:
     address: ":80"
 
-  websecure:
-    address: ":443"
+  mssql:
+    address: ":1433"
 
 log:
   level: "DEBUG"
@@ -24,4 +24,7 @@ providers:
     directory: "/etc/traefik/dynamic/"
     watch: true
     debugLogGeneratedTemplate: true
-  
+
+tracing:
+  jaeger:
+    samplingServerURL: http://127.0.0.1:5778/sampling
