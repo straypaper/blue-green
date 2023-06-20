@@ -1,9 +1,0 @@
-tls:
-  options:
-    default:
-      alpnProtocols:
-        - http/1.1
-        - h2
-        - tds/8.0
-      sniStrict: false
-      maxVersion: VersionTLS12

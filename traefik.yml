@@ -1,6 +1,6 @@
 global:
   checkNewVersion: false
-  sendAnonymousUsage: true
+  sendAnonymousUsage: false
 
 entryPoints:
   web:
@@ -24,7 +24,3 @@ providers:
     directory: "/etc/traefik/dynamic/"
     watch: true
     debugLogGeneratedTemplate: true
-
-tracing:
-  jaeger:
-    samplingServerURL: http://127.0.0.1:5778/sampling
